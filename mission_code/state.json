@@ -1,5 +1,5 @@
 {
-    "best_score": 5.0,
+    "best_score": 5.5,
     "quizzes": [
         {
             "question": "대한민국의 수도는?",
@@ -55,6 +55,17 @@
             ],
             "answer": 3,
             "hint": "ACB"
+        },
+        {
+            "question": "저가 커피점이 아닌것은?",
+            "choices": [
+                "빽다방",
+                "메가커피",
+                "컴포즈",
+                "스타벅스"
+            ],
+            "answer": 4,
+            "hint": "STAR"
         }
     ],
     "history": [
@@ -62,6 +73,16 @@
             "datetime": "2026-08-04 20:34:45",
             "quiz_count": 5,
             "score": 5.0
+        },
+        {
+            "datetime": "2026-08-05 12:29:28",
+            "quiz_count": 6,
+            "score": 4.5
+        },
+        {
+            "datetime": "2026-08-05 12:31:38",
+            "quiz_count": 6,
+            "score": 5.5
         }
     ]
 }

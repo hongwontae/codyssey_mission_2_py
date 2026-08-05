@@ -20,33 +20,36 @@ class QuizGame:
             Quiz("학습 네이토의 정체는?", ["깡통", "할루시네이션", "AI Chat Bot", "네이트"],3, "ACB"),
         ]
 
-
     def run(self):
-        while True:
-            self.show_menu()
+        try :
+            while True:
+                self.show_menu()
 
-            menu = self.get_menu()
+                menu = self.get_menu()
 
-            if menu == 1:
-                self.play_quiz()
+                if menu == 1:
+                    self.play_quiz()
 
-            elif menu == 2:
-                self.add_quiz()
+                elif menu == 2:
+                    self.add_quiz()
 
-            elif menu == 3:
-                self.show_quiz_list()
+                elif menu == 3:
+                    self.show_quiz_list()
 
-            elif menu == 4:
-                self.show_best_score()
-            elif menu == 5 :
-                self.delete_quiz()
-            elif menu == 6 :
-                self.print_history()
+                elif menu == 4:
+                    self.show_best_score()
+                elif menu == 5 :
+                    self.delete_quiz()
+                elif menu == 6 :
+                    self.print_history()
 
-            elif menu == 0:
-                self.save_state()
-                print("프로그램 종료")
-                break
+                elif menu == 0:
+                    self.save_state()
+                    print("프로그램 종료")
+                    break
+        except (KeyboardInterrupt, EOFError) :
+            print("\n 프로그램을 안전하게 종료합니다.")
+            self.save_state()
 
     def show_menu(self):
             print("""
@@ -261,7 +264,13 @@ Quiz Game
 
                 self.quizzes.append(quiz)
 
-        except (FileNotFoundError, json.JSONDecodeError):
+        except FileNotFoundError:
+            print("저장 파일이 없습니다. 기본 퀴즈를 생성합니다.")
+            self.init_quizzes()
+            self.save_state()
+
+        except json.JSONDecodeError:
+            print("저장 파일이 손상되었습니다. 기본 퀴즈로 복구합니다.")
             self.init_quizzes()
             self.save_state()
 
