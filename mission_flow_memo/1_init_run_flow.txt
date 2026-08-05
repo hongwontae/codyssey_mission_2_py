@@ -1,0 +1,12 @@
+1. main 파일 실행
+2. QuizGame 클래스를 호출해서 game 객체를 생성
+3. game.run() 실행
+
+4. QuizGame 생성자 함수 __init__ 실행
+    4-1. self_quizees = []
+    4-2. self.best.score = 0
+    4-3. self.history = []
+    4-4. self.load_state()
+
+5. self.load_state()
+    5-1. 해당 함수는 
