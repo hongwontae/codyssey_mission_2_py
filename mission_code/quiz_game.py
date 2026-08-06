@@ -7,7 +7,6 @@ class QuizGame:
 
     CHOICE_COUNT = 4
 
-
     def __init__(self):
         self.quizzes = []
         self.best_score = 0
@@ -207,12 +206,12 @@ Quiz Game
             self.save_state()
 
     def save_history(self, quiz_count, score) :
-        history = {
+        record = {
             "datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "quiz_count": quiz_count,
             "score": score
         }
-        self.history.append(history)
+        self.history.append(record)
 
     def print_history(self):
         if not self.history:
@@ -221,11 +220,11 @@ Quiz Game
 
         print("\n===== 점수 기록 =====")
 
-        for i, history in enumerate(self.history, start=1):
+        for i, record in enumerate(self.history, start=1):
             print(f"[{i}]")
-            print(f"날짜 : {history['datetime']}")
-            print(f"푼 문제 수 : {history['quiz_count']}")
-            print(f"점수 : {history['score']}")
+            print(f"날짜 : {record['datetime']}")
+            print(f"푼 문제 수 : {record['quiz_count']}")
+            print(f"점수 : {record['score']}")
             print()
 
     def input_number(self, message, minimum, maximum):

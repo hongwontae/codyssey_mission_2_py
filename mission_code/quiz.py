@@ -27,5 +27,5 @@ class Quiz:
         }
     
     def print_hint(self) :
-        print()
+        print() 
         print(f"힌트 : {self.hint}")
