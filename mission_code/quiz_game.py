@@ -46,7 +46,6 @@ class QuizGame:
             print("\n프로그램을 안전하게 종료합니다.")
             self.save_state()
 
-
     def show_menu(self):
             print("""
 ==========================

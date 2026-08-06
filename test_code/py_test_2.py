@@ -1,17 +1,22 @@
-scores = [10, 20, 30, 40]
+scores = [1,2,3,4]
 
-print(scores);
-
-
-one_score = scores[2]
-
-print(one_score)
-
-scores[3] = 100
-
+scores.extend("Hello-World");
 print(scores)
 
+scores.remove("H")
+print(scores)
 
-data = [1, "g", True, 40.2]
+xx = scores.pop()
+print(xx, scores)
 
-print(data)
+loc = scores.index("-")
+print(loc)
+
+num = scores.count(2)
+print(num)
+
+nums = [1,3,5,6,2,5]
+
+nums.sort(reverse=True)
+print(nums)
+
