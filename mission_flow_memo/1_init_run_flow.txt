@@ -10,6 +10,8 @@
         2. 이 떄 with open을 통해서 파일을 가져오고 json.load()를 통해 json 문자열을 python 객체로 가져옵니다.
 
         3. 전달된 data["quizzes"]는 다양한 작업을 위해서 for + Quiz를 통해 하나씩 객체로 만듭니다.
+            => 가져온 json 파일의 quizzes의 형태는 리스트에 객체가 있는 형태입니다. -> 그 객체를 통해서 Quiz 클래스로 초기화해야함
+            => 그래서 하나씩 가져와서 key_value 접근으로 객체를 생성하고 append합니다.
 
         4. 만약 try 시도 중 파일을 찾을 수 없는 에러가 발생 -> FileNotFoundError -> except이 잡습니다.
 
@@ -26,4 +28,6 @@
                 => 리스트 컴프레헨션을 사용하는 것입니다. [표현식 for element in 반복가능한객체]
             6-3. quiz_to_dict()은 Quiz 객체를 바로 json에 넣을 수 없으니 정제하는 함수입니다.
             6-4. 그 이후에 open을 통해 파일 객체를 만들고 dump을 통해 json 파일에 저장합니다.
+        
+        
         

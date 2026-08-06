@@ -5,10 +5,20 @@ from datetime import datetime
 
 class QuizGame:
 
+    CHOICE_COUNT = 4
+
+
     def __init__(self):
         self.quizzes = []
         self.best_score = 0
         self.history = []
+        self.menu_actions = {
+            1: self.play_quiz,
+            2: self.add_quiz,
+            3: self.show_quiz_list,
+            4: self.show_best_score,
+            5: self.delete_quiz,
+            6: self.print_history,}
         self.load_state()
 
     def init_quizzes(self) :
@@ -21,34 +31,20 @@ class QuizGame:
         ]
 
     def run(self):
-        try :
+        try:
             while True:
                 self.show_menu()
-
                 menu = self.get_menu()
 
-                if menu == 1:
-                    self.play_quiz()
-
-                elif menu == 2:
-                    self.add_quiz()
-
-                elif menu == 3:
-                    self.show_quiz_list()
-
-                elif menu == 4:
-                    self.show_best_score()
-                elif menu == 5 :
-                    self.delete_quiz()
-                elif menu == 6 :
-                    self.print_history()
-
-                elif menu == 0:
+                if menu == 0:
                     self.save_state()
-                    print("프로그램 종료")
+                    print("프로그램을 종료합니다.")
                     break
-        except (KeyboardInterrupt, EOFError) :
-            print("\n 프로그램을 안전하게 종료합니다.")
+
+                self.menu_actions[menu]()
+
+        except (KeyboardInterrupt, EOFError):
+            print("\n프로그램을 안전하게 종료합니다.")
             self.save_state()
 
     def show_menu(self):
@@ -67,34 +63,14 @@ Quiz Game
 """)
 
     def get_menu(self):
-            while True:
-                try:
-                    menu = int(input("메뉴를 선택하세요: "))
-
-                    if 0 <= menu <= 6:
-                        return menu
-
-                    print("0~4 사이의 숫자를 입력하세요.")
-
-                except ValueError:
-                    print("숫자를 입력하세요.")
+        return self.input_number("메뉴를 선택하세요: ", 0, max(self.menu_actions))   
 
     def play_quiz(self):
         score = 0.0
 
         print("\n===== 퀴즈 시작 =====")
 
-        while True:
-            try:
-                count = int(input(f"몇 문제를 푸시겠습니까? (1~{len(self.quizzes)}) : "))
-
-                if 1 <= count <= len(self.quizzes):
-                    break
-
-                print(f"1~{len(self.quizzes)} 사이의 숫자를 입력하세요.")
-
-            except ValueError:
-                print("숫자를 입력하세요.")
+        count = self.input_number(f"몇 문제를 푸시겠습니까? (1~{len(self.quizzes)}): ",1,len(self.quizzes))
 
         random_quizzes = random.sample(self.quizzes, count)
 
@@ -103,30 +79,16 @@ Quiz Game
 
             quiz.print_quiz()
 
-            hint_used = False
+            print()
+            hint_used = self.confirm("힌트를 보시겠습니까? (y/n) : ")
 
-            while True :
-                choice = input("힌트를 보시겠습니까? (y/n) : ").lower()
+            if hint_used:
+                quiz.print_hint()
 
-                if choice == 'y' :
-                    quiz.print_hint()
-                    hint_used = True
-                    break
-                elif choice == 'n' :
-                    break
-                else :
-                    print("y 또는 n을 입력해주세요")
-
-            while True :
-                try :
-                    answer = int(input("정답 번호를 입력하세요 : "))
-                    if 1 <= answer <=4 :
-                        break
-                    print("1~4를 입력하세요")
-                except ValueError :
-                    print("숫자를 입력하세요")
+            answer = self.input_number("정답 번호를 입력하세요: ",1, len(quiz.choices))
 
             if quiz.check_answer(answer):
+                print()
                 print("정답입니다!")
 
                 if hint_used :
@@ -151,41 +113,16 @@ Quiz Game
         self.save_state()
 
     def add_quiz(self):
-        while True:
-            question = input("문제 : ").strip()
-
-            if question:
-                break
-
-            print("문제를 입력하세요.")
+        question = self.input_text("문제 : ")
 
         choices = []
 
-        for i in range(1, 5):
-            while True:
-                choice = input(f"{i}번 보기 : ").strip()
+        for i in range(1, self.CHOICE_COUNT+1):
+            choices.append(self.input_text(f"{i}번 보기 : "))
 
-                if choice:
-                    choices.append(choice)
-                    break
+        answer = self.input_number("정답 번호: ",1,len(choices))
 
-                print("보기를 입력하세요.")
-
-        while True :
-            try :
-                answer = int(input("정답 번호 : "))
-                if 1<= answer <= 4 :
-                    break
-                print("1~4를 입력하세요")
-            except ValueError :
-                print("숫자를 입력하세요")
-
-        while True :
-            hint = input("힌트 : ").strip()
-
-            if hint :
-                break
-            print("힌트를 입력하세요")
+        hint = self.input_text("힌트 : ")
 
         quiz = Quiz(question, choices, answer, hint)
 
@@ -211,20 +148,9 @@ Quiz Game
 
         self.show_quiz_list()
 
-        while True:
-            try:
-                num = int(input("\n삭제할 퀴즈 번호를 입력하세요 : "))
+        num = self.input_number("삭제할 퀴즈 번호: ",1,len(self.quizzes))
 
-                if 1 <= num <= len(self.quizzes):
-                    break
-
-                print(f"1~{len(self.quizzes)} 사이의 번호를 입력하세요.")
-
-            except ValueError:
-                print("숫자를 입력하세요.")
-        confirm = input("정말 삭제하겠습니까? (y/n) : ").lower()
-
-        if confirm != 'y' :
+        if not self.confirm("정말 삭제하겠습니까? (y/n): "):
             print("삭제가 취소되었습니다.")
             return
 
@@ -239,9 +165,11 @@ Quiz Game
                 "best_score": self.best_score,
                 "quizzes": [quiz.to_dict() for quiz in self.quizzes],
                 "history": self.history}
-
-        with open("state.json", "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
+        try :
+            with open("state.json", "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+        except OSError :
+            print("파일 저장에 실패했습니다.")
 
     def load_state(self):
         try:
@@ -273,6 +201,10 @@ Quiz Game
             print("저장 파일이 손상되었습니다. 기본 퀴즈로 복구합니다.")
             self.init_quizzes()
             self.save_state()
+        except KeyError :
+            print("저장할 파일 형식이 올바르지 않습니다.")
+            self.init_quizzes()
+            self.save_state()
 
     def save_history(self, quiz_count, score) :
         history = {
@@ -295,3 +227,37 @@ Quiz Game
             print(f"푼 문제 수 : {history['quiz_count']}")
             print(f"점수 : {history['score']}")
             print()
+
+    def input_number(self, message, minimum, maximum):
+        while True:
+            try:
+                number = int(input(message).strip())
+
+                if minimum <= number <= maximum:
+                    return number
+
+                print(f"{minimum}~{maximum} 사이의 숫자를 입력하세요.")
+
+            except ValueError:
+                print("숫자를 입력하세요.")
+
+    def input_text(self, message):
+        while True:
+            text = input(message).strip()
+
+            if text:
+                return text
+
+            print("빈 문자열은 입력할 수 없습니다.")
+
+    def confirm(self, message):
+        while True:
+            choice = input(message).strip().lower()
+
+            if choice == "y":
+                return True
+
+            if choice == "n":
+                return False
+
+            print("y 또는 n을 입력하세요.")

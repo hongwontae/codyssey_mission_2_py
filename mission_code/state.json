@@ -1,5 +1,5 @@
 {
-    "best_score": 5.5,
+    "best_score": 6.0,
     "quizzes": [
         {
             "question": "대한민국의 수도는?",
@@ -83,6 +83,11 @@
             "datetime": "2026-08-05 12:31:38",
             "quiz_count": 6,
             "score": 5.5
+        },
+        {
+            "datetime": "2026-08-06 19:51:20",
+            "quiz_count": 6,
+            "score": 6.0
         }
     ]
 }
