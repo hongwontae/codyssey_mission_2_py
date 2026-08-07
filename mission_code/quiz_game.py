@@ -109,7 +109,7 @@ Quiz Game
         else :
             print("최고 점수는 갱신되지 않았습니다.")
 
-        self.save_state()
+        self.save()
 
     def add_quiz(self):
         question = self.input_text("문제 : ")
@@ -126,7 +126,7 @@ Quiz Game
         quiz = Quiz(question, choices, answer, hint)
 
         self.quizzes.append(quiz)
-        self.save_state()
+        self.save()
 
         print("퀴즈가 추가되었습니다.")
 
@@ -155,7 +155,7 @@ Quiz Game
 
         deleted = self.quizzes.pop(num - 1)
 
-        self.save_state()
+        self.save()
 
         print(f"'{deleted.question}' 퀴즈가 삭제되었습니다.")
 
@@ -228,8 +228,7 @@ Quiz Game
             print(f"점수 : {record['score']}")
             print()
 
-
-    def input_number(self, message, minimum, maximum):
+    def input_number(self, message : str, minimum : int, maximum : int) -> int:
         
         while True:
             try:
@@ -243,7 +242,7 @@ Quiz Game
             except ValueError:
                 print("숫자를 입력하세요.")
 
-    def input_text(self, message):
+    def input_text(self, message : str) -> str:
         while True:
             text = input(message).strip()
 
@@ -263,3 +262,6 @@ Quiz Game
                 return False
 
             print("y 또는 n을 입력하세요.")
+
+    def save(self):
+        self.save_state()

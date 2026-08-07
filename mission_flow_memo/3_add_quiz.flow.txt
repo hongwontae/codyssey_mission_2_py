@@ -1,0 +1,16 @@
+1. input_text를 실행하여 문제를 기술합니다.
+
+
+2. input_text
+    2-1. message를 인자로 받고 strip()으로 공백을 제거한 채 받습니다.
+    2-2. 만약 text가 빈 문자열이 아니라면 return으로 돌려줍니다.
+    2-3. 그렇지 않으면 while문을 계속 돕니다.
+
+
+3. input_text() 반환값을 question에 넣습니다.
+4. 그리고 상수 값으로 둔 선지만큼 for문을 돌립니다. -> range에 stop-1이라서 +1
+5. input_text를 통해 선지를 만듭니다.
+6. input_number를 통해 정답을 만듭니다.
+7. input_hint를 통해 힌트를 만듭니다.
+8. 그리고 여태 모았던 변수들을 인자로 해서 Quiz를 통해 객체로 만듭니다.
+9. 그리고 append -> save_state()
