@@ -1,3 +1,37 @@
 1. run 실행 -> show_menu + get_menu를 통해 번호를 받아옵니다.
 
-2. 사용자가 1번을 눌르고 enter -> self.menu_actions[]
+2. 사용자가 1번을 눌르고 enter -> self.menu_actions[1]
+    => 함수도 객체이기에 할당이 가능합니다.
+    => a = def helloworld () : print("hello-world") -> 가능
+
+
+3. play_quiz(self)가 실행됩니다.
+    3-1. score = 0.0으로 초기화
+    3-2. 몇 문제를 풀건지 input_number() 함수를 통해 가져옵니다.
+    3-3. import random 
+        => sample를 통해서 중복 없이 어떤 리스트를 랜덤하게 몇 개 반환할건지 정합니다.
+        => 정한 리스트를 enumerate를 사용해서 index와 함께 for문을 돌립니다.
+    3-4. 먼저 quiz가 나갑니다.
+    3-5. confirm을 통해 bool 값을 받아옵니다.
+    3-6. True라면 힌트를 보여줍니다. -> 예전에 초기화한 힌트 메시지를 출력합니다.
+    3-7. input_number를 통해 정답을 받아옵니다.
+        => 정답이 일치한다면 True, 아니라면 False를 받아옵니다.
+    3-8. 그리고 정답을 맞혔다면 hint_used에 따라 다른 가중치를 더합니다.
+    3-9. 정답이 아니라면 메시지만 출력합니다.
+    3-10. 마무리 작업으로 save_history를 호출합니다.
+        => 가져온 데이터를 토대로 객체를 만듭니다.
+        => 현재 날짜, 몇 문제를 풀었는지, 점수를 record란 이름으로 객체로 만듭니다.
+        => 그리고 history 리스트 속성에 넣습니다.
+    3-11. 그리고 지금이 score가 best_score보다 높다면 갱신 후 출력 / 아니라면 메시지만 출력
+    3-12. 찐 마무리 작업으로 save_state() 호출합니다.
+
+    
+    3-4. confirm
+        => confirm은 메시지를 받아서 받은 처리를 다시 물어보는 함수입니다.
+        => input으로 문자열을 받는데 공백을 지우고 소문자로 받습니다.
+        => y/n이 아니라면 지속적으로 무한 루프를 돌고 y면 True, n이면 False를 return 합니다.
+    
+    3-5. save_state()
+        => best_score, 메모리에 존재하는 quiz 객체를 to_dict를 통해 저장하기 쉽게 파이썬 객체로 변환합니다.
+        => json 라이브러리는 dictionary를 받습니다. 클래스를 호출해서 만든 객체를 식별하지 못합니다.
+        => 만약 쓰다가 OSError가 발생하면 메시지를 출력하고 run의 흐름으로 갑니다.

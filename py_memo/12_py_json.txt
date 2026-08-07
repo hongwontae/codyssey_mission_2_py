@@ -34,7 +34,10 @@
     
     2-8. json.dump(obj, file)
         => 첫 번쨰 인자로 파이썬 객체, 두 번쨰 인자로 파일 객체를 받습니다.
+        => 파이썬 객체 -> json으로 변환 가능한 파이썬 객체입니다. dict, list, tuple, str, int..
         => 받은 파이썬 객체를 문자열로 만들고 바로 파일에 write합니다.
     2-9. dump() / dumps() 옵션
         => indent : 들여쓰기입니다. 대체로 4를 사용합니다.
         => ensure_ascii : 파일의 JSON 문자열 안에서 한글을 ASCII로 바꿔 저장할까? 말까?
+
+

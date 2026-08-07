@@ -99,7 +99,7 @@ Quiz Game
                 print(f"오답입니다! 정답은 {quiz.get_answer()}번 입니다.")
 
         print("\n===== 퀴즈 종료 =====")
-        print(f"점수 : {score} / {count}")
+        print(f"점수 : {score} / {float(count)}")
 
         self.save_history(count, score)
 
@@ -205,6 +205,7 @@ Quiz Game
             self.init_quizzes()
             self.save_state()
 
+    # self.save_history(count, score)
     def save_history(self, quiz_count, score) :
         record = {
             "datetime": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -227,7 +228,9 @@ Quiz Game
             print(f"점수 : {record['score']}")
             print()
 
+
     def input_number(self, message, minimum, maximum):
+        
         while True:
             try:
                 number = int(input(message).strip())
