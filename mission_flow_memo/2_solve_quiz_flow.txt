@@ -1,0 +1,3 @@
+1. run 실행 -> show_menu + get_menu를 통해 번호를 받아옵니다.
+
+2. 사용자가 1번을 눌르고 enter -> self.menu_actions[]
